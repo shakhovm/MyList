@@ -34,6 +34,16 @@ TEST_F(ListFixture, init)
     lst1.clear();
     EXPECT_EQ(lst1.size(), 0);
 
+    lst1.push_back(2);
+    EXPECT_EQ(lst1.size(), 1);
+    EXPECT_EQ(lst1.front(), 2);
+
+    auto newList = new MyList<int>;
+    for (int i = 0; i < 10; ++i) {
+        newList->push_back(i);
+    }
+
+    delete newList;
 }
 
 TEST_F(ListFixture, insert_erase)
@@ -83,4 +93,29 @@ TEST_F(ListFixture, emplace)
     lst.emplace(lst.begin() + 3, 100, 120);
     EXPECT_EQ(lst[3].x, 100);
     EXPECT_EQ(lst[3].y, 120);
+}
+
+TEST_F(ListFixture, comparing)
+{
+    MyList<int> lst1;
+    MyList<int> lst2;
+    for (int i = 0; i < 10; ++i) {
+        lst1.push_back(i);
+        lst2.push_back(i);
+    }
+    EXPECT_EQ(lst1, lst2);
+    EXPECT_LE(lst1, lst2);
+
+    lst2.pop_back();
+
+    EXPECT_GT(lst1, lst2);
+    EXPECT_GE(lst1, lst2);
+    EXPECT_LE(lst2, lst1);
+    EXPECT_LT(lst2, lst1);
+
+    lst2.pop_back();
+    lst2.push_back(10);
+
+    EXPECT_GT(lst2, lst1);
+    EXPECT_NE(lst1, lst2);
 }

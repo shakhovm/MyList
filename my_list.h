@@ -602,25 +602,25 @@ bool operator!=(const MyList<T>& lst1, const MyList<T>& lst2)
 template <typename T>
 bool operator<(const MyList<T>& lst1, const MyList<T>& lst2)
 {
-    return std::lexicographical_compare(lst1.begin(), lst1.end(), lst2.begin(), lst2.end());
+    return std::lexicographical_compare(lst1.cbegin(), lst1.cend(), lst2.cbegin(), lst2.cend());
 }
 
 template <typename T>
 bool operator<=(const MyList<T>& lst1, const MyList<T>& lst2)
 {
-    return (lst1 < lst2) || (lst1 == lst2);
+    return !(lst1 > lst2);
 }
 
 template <typename T>
 bool operator>(const MyList<T>& lst1, const MyList<T>& lst2)
 {
-    return !(lst1 <= lst2);
+    return std::lexicographical_compare(lst2.cbegin(), lst2.cend(), lst1.cbegin(), lst1.cend());
 }
 
 template <typename T>
 bool operator>=(const MyList<T>& lst1, const MyList<T>& lst2)
 {
-    return (lst1 == lst2) || (lst1 > lst2);
+    return !(lst1 < lst2);
 }
 
 
